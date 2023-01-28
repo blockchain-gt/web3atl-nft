@@ -53,8 +53,6 @@ exports.addSpeakerEmail = functions.https.onRequest(async (req, res) => {
     // Send back a message that we've successfully written the message
     res.json({result: `Message with ID: ${writeResult.id} added.`});
     });
-
-exports
   
   
 
