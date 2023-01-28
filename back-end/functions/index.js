@@ -17,6 +17,45 @@ admin.initializeApp();
 
 // Take the text parameter passed to this HTTP endpoint and insert it into 
 // Firestore under the path /messages/:documentId/original
+exports.addGeneralEmail = functions.https.onRequest(async (req, res) => {
+    // Grab the text parameter.
+    const original = req.query.text;
+    // Push the new message into Firestore using the Firebase Admin SDK.
+    const writeResult = await admin.firestore().collection('email_general').add({original: original});
+    // Send back a message that we've successfully written the message
+    res.json({result: `Message with ID: ${writeResult.id} added.`});
+});
+
+
+exports.addHackerEmail = functions.https.onRequest(async (req, res) => {
+    // Grab the text parameter.
+    const original = req.query.text;
+    // Push the new message into Firestore using the Firebase Admin SDK.
+    const writeResult = await admin.firestore().collection('email_hacker').add({original: original});
+    // Send back a message that we've successfully written the message
+    res.json({result: `Message with ID: ${writeResult.id} added.`});
+});
+
+exports.addTeamEmail = functions.https.onRequest(async (req, res) => {
+    // Grab the text parameter.
+    const original = req.query.text;
+    // Push the new message into Firestore using the Firebase Admin SDK.
+    const writeResult = await admin.firestore().collection('email_team').add({original: original});
+    // Send back a message that we've successfully written the message
+    res.json({result: `Message with ID: ${writeResult.id} added.`});
+});
+    
+exports.addSpeakerEmail = functions.https.onRequest(async (req, res) => {
+    // Grab the text parameter.
+    const original = req.query.text;
+    // Push the new message into Firestore using the Firebase Admin SDK.
+    const writeResult = await anpmdmin.firestore().collection('email_speaker').add({original: original});
+    // Send back a message that we've successfully written the message
+    res.json({result: `Message with ID: ${writeResult.id} added.`});
+});
+
+// Take the text parameter passed to this HTTP endpoint and insert it into 
+// Firestore under the path /messages/:documentId/original
 exports.addMessage = functions.https.onRequest(async (req, res) => {
   // Grab the text parameter.
   const original = req.query.text;
