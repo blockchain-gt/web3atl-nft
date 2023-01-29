@@ -26,7 +26,7 @@ exports.addGeneralEmail = functions.https.onRequest(async (req, res) => {
     data["general"].push(original);
     db.collection('Email').doc("Participants").set(data);
 
-    res.send(data);
+    res.send(original + " email has been added!");
 });
 
 exports.verifyGeneralEmail = functions.https.onRequest(async (req, res) => {
@@ -57,7 +57,7 @@ exports.addSpeakerEmail = functions.https.onRequest(async (req, res) => {
     data["speaker"].push(original);
     db.collection('Email').doc("Participants").set(data);
 
-    res.send(data);
+    res.send(original + " email has been added!");
 });
 
 exports.verifySpeakerEmail = functions.https.onRequest(async (req, res) => {
@@ -88,7 +88,7 @@ exports.addHackerEmail = functions.https.onRequest(async (req, res) => {
     data["hacker"].push(original);
     db.collection('Email').doc("Participants").set(data);
 
-    res.send(data);
+    res.send(original + " email has been added!");
 });
 
 exports.verifyHackerEmail = functions.https.onRequest(async (req, res) => {
@@ -119,7 +119,7 @@ exports.addTeamEmail = functions.https.onRequest(async (req, res) => {
     data["team"].push(original);
     db.collection('Email').doc("Participants").set(data);
 
-    res.send(data);
+    res.send(original + " email has been added!");
 });
 
 exports.verifyTeamEmail = functions.https.onRequest(async (req, res) => {
@@ -143,7 +143,7 @@ exports.verifyTeamEmail = functions.https.onRequest(async (req, res) => {
 // Take the text parameter passed to this HTTP endpoint and insert it into 
 // Firestore under the path /messages/:documentId/original
 exports.addGeneralEmailTest = functions.https.onRequest(async (req, res) => {
-    const original = req.query.text;
+    const original = req.query.text.toLowerCase();
     const db = admin.firestore();
     const doc = db.collection('Email').doc("Attendance List Test").get();
     let data = (await doc).data();
@@ -151,11 +151,11 @@ exports.addGeneralEmailTest = functions.https.onRequest(async (req, res) => {
     data["general"].push(original);
     db.collection('Email').doc("Participants").set(data);
 
-    res.send(data);
+    res.send(original + " email has been added!");
 });
 
 exports.verifyGeneralEmailTest = functions.https.onRequest(async (req, res) => {
-    const original = req.query.text;
+    const original = req.query.text.toLowerCase();
     const db = admin.firestore();
     const doc = db.collection('Email').doc("Attendance List Test").get();
     let data = (await doc).data();
