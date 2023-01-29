@@ -140,6 +140,38 @@ exports.verifyTeamEmail = functions.https.onRequest(async (req, res) => {
 });
 
 
+// Take the text parameter passed to this HTTP endpoint and insert it into 
+// Firestore under the path /messages/:documentId/original
+exports.addGeneralEmailTest = functions.https.onRequest(async (req, res) => {
+    const original = req.query.text;
+    const db = admin.firestore();
+    const doc = db.collection('Email').doc("Attendance List Test").get();
+    let data = (await doc).data();
+    
+    data["general"].push(original);
+    db.collection('Email').doc("Participants").set(data);
+
+    res.send(data);
+});
+
+exports.verifyGeneralEmailTest = functions.https.onRequest(async (req, res) => {
+    const original = req.query.text;
+    const db = admin.firestore();
+    const doc = db.collection('Email').doc("Attendance List Test").get();
+    let data = (await doc).data();
+
+    let list = data["general"]
+    let size = list.length;
+    
+    for (let i = 0; i<size; i++) {
+        if (list[i].localeCompare(original)==0) {
+            res.send("Email Verified");
+        } 
+    }
+    res.send("Email has not been registered!");
+});
+
+
 // exports.addHackerEmail = functions.https.onRequest(async (req, res) => {
 //     // Grab the text parameter.
 //     const original = req.query.text;
