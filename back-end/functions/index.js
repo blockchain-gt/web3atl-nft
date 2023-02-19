@@ -26,11 +26,18 @@ exports.addEmail = functions.https.onRequest(async (req, res) => {
     const db = admin.firestore();
     const doc = db.collection('Email').doc("Attendance List").get();
     let data = (await doc).data();
-     
-    data[type].push(email+",");
-    db.collection('Email').doc("Attendance List").set(data);
 
-    res.send(original + " email has been added to " + type + " email list!");
+    if(data[type] == null) {
+        data[type] = [email+","]
+        db.collection('Email').doc("Attendance List").set(data);
+        res.send(original + " email has been added to " + type + " email list!");
+    } else  {
+        data[type].push(email+",");
+        db.collection('Email').doc("Attendance List").set(data);
+        res.send(original + " email has been added to " + type + " email list!");
+    }
+     
+   
 });
 
 
@@ -49,6 +56,7 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
 
     let list = data[type]
     let size = list.length
+    let bool = false;
     
     for (let i = 0; i<size; i++) {
         let currentString = list[i]
@@ -59,7 +67,12 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
             list[i] = currentEmail+","+address;
             data[type] = list
             db.collection('Email').doc("Attendance List").set(data)
+            bool = true;
+            res.send("Email exist!");
         } 
+    }
+    if(!bool) {
+        res.send("Cannot find!");
     }
 });
 
@@ -79,6 +92,7 @@ exports.updateAddress = functions.https.onRequest(async (req, res) => {
 
     let list = data[type]
     let size = list.length
+    let bool = false;
     
     for (let i = 0; i<size; i++) {
         let currentString = list[i]
@@ -89,10 +103,13 @@ exports.updateAddress = functions.https.onRequest(async (req, res) => {
             list[i] = currentEmail+","+address;
             data[type] = list
             db.collection('Email').doc("Attendance List").set(data)
-            res.send("Email Verified");
+            bool = true;
+            res.send("Have updated the given email with address " + address);
         } 
     }
-    res.send("Email has not been registered!");
+    if(!bool) {
+        res.send("Cannot find given email in given list");
+    }
 });
 
 
@@ -100,6 +117,6 @@ exports.queryList = functions.https.onRequest(async (req, res) => {
     const db = admin.firestore();
     const doc = db.collection('Email').doc("Attendance List").get();
     let data = (await doc).data();
-    res.json({"general": data["general"], "speaker": data["speaker"], "hacker": data["hacker"], "team": data["team"]})
+    res.json({"general": data["general"], "speaker": data["speaker"], "hacker": data["hacker"], "team": data["team"], "sponser": data["sponser"]})
 });
 
