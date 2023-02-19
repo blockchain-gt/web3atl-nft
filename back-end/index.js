@@ -117,7 +117,6 @@ function getLeafNodes(addresses) {
 
 async function main() {
     //await readAddresses();
-    const docRef await. 
 
 
     console.log("Hacker Merkle Root: " + merkleTreeHacker.getHexRoot());
