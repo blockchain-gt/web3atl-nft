@@ -1,0 +1,33 @@
+.success-text {
+  margin-top: 10px;
+  font-size: 16px;
+  padding: 10px 10px;
+  display: none;
+}
+
+.user-circle {
+  display: flex;
+  border-radius: 12px;
+  width: 24px;
+  height: 24px;
+  border: 1px solid black;
+  margin-right: 10px;
+  margin-bottom: 25px;
+  background-color: white;
+}
+.user-circle:hover {
+  cursor: pointer;
+}
+.user-filled-circle {
+  display: flex;
+  border-radius: 12px;
+  width: 24px;
+  height: 24px;
+  background: black;
+  margin-right: 10px;
+  margin-bottom: 25px;
+  background-color: blue;
+}
+.user-filled-circle:hover {
+  cursor: pointer;
+}

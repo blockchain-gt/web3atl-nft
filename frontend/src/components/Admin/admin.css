@@ -1,0 +1,19 @@
+.admin-text-option-box {
+  width: 300px;
+  border: 1px solid black;
+  padding: 10px 15px;
+  height: fit-content;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+}
+
+.admin-error-message {
+  margin-top: 15px;
+  display: none;
+  margin-bottom: -5px;
+}
+
+.button-margin {
+  margin-top: 25px;
+}
