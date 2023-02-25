@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ethers } from "ethers";
 import abi from "../../mintNFTABI.json";
 import "./claim.css";
-const contractAddress = "0x760CECF7Af6a01D9aD8FaCE4c60b0edd623D2Fe0";
+const contractAddress = "0x551Fcf8733B99Fb14fDef8097Cde3b08D41FAE54";
 
 function App() {
   const [isHacker, setIsHacker] = useState(false);
@@ -245,7 +245,7 @@ function App() {
               There was an error, please try again later.
             </h6>
             <h6 class="text-danger error-message" id="network-error-message">
-              Please specify the Ethereum Mainnet
+              Please connect to the Optimism Network
             </h6>
           </div>
           <div class="d-flex justify-content-center">
@@ -293,15 +293,7 @@ function App() {
                   } else {
                     text += "general";
                   }
-                  fetch(
-                    "https://damp-sierra-23787.herokuapp.com/https://us-central1-web3-atl-nfts.cloudfunctions.net/updateAddress?param=" +
-                      emailBox.value +
-                      "&param=" +
-                      text +
-                      "&param=" +
-                      sessionStorage.getItem("account")
-                  );
-                  if (window.ethereum.networkVersion === "5") {
+                  if (window.ethereum.networkVersion === "10") {
                     document.getElementById(
                       "network-error-message"
                     ).style.display = "none";
@@ -314,17 +306,21 @@ function App() {
                     );
                     if (isTeam) {
                       let val = contract.teamMint();
-                      console.log(val);
                     } else if (isSpeaker) {
                       let val = contract.speakerMint();
-                      console.log(val);
                     } else if (isHacker) {
                       let val = contract.hackerMint();
-                      console.log(val);
                     } else if (isGeneral) {
                       let val = contract.generalMint();
-                      console.log(val);
                     }
+                    fetch(
+                      "https://damp-sierra-23787.herokuapp.com/https://us-central1-web3-atl-nfts.cloudfunctions.net/updateAddress?param=" +
+                        emailBox.value +
+                        "&param=" +
+                        text +
+                        "&param=" +
+                        sessionStorage.getItem("account")
+                    );
                   } else {
                     document.getElementById(
                       "network-error-message"

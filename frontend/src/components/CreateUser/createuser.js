@@ -148,7 +148,7 @@ function Createuser() {
             }
           }}
         >
-          Claim
+          Upload
         </button>
       </div>
       <div class="d-flex justify-content-center">
