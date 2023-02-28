@@ -3248,3 +3248,6 @@ INFO: Detected HTTP/2 connection.
 [debug] [2023-02-28T22:24:27.965Z] [worker-us-central1-generateProof-d0b9ea5e-9100-4116-966b-0dfe1eb01bb8]: FINISHING {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-generateProof-d0b9ea5e-9100-4116-966b-0dfe1eb01bb8]: FINISHING"}}
 [debug] [2023-02-28T22:24:27.975Z] [worker-us-central1-generateProof-d0b9ea5e-9100-4116-966b-0dfe1eb01bb8]: exited {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-generateProof-d0b9ea5e-9100-4116-966b-0dfe1eb01bb8]: exited"}}
 [debug] [2023-02-28T22:24:27.975Z] [worker-us-central1-generateProof-d0b9ea5e-9100-4116-966b-0dfe1eb01bb8]: FINISHED {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-generateProof-d0b9ea5e-9100-4116-966b-0dfe1eb01bb8]: FINISHED"}}
+[debug] [2023-02-28T22:24:50.867Z] Feb 28, 2023 3:24:50 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Feb 28, 2023 3:24:50 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\nINFO: Detected non-HTTP/2 connection.\n"}}
