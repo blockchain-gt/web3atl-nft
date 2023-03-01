@@ -311,13 +311,13 @@ function App() {
                     //remember string-> bytes32 for list of proof
 
                     if (isTeam) {
-                      let val = contract.teamMint();
+                      let val = contract.teamMint(bytes32Proof, emailBox.value);
                     } else if (isSpeaker) {
-                      let val = contract.speakerMint();
+                      let val = contract.speakerMint(bytes32Proof, emailBox.value);
                     } else if (isHacker) {
-                      let val = contract.hackerMint();
+                      let val = contract.hackerMint(bytes32Proof, emailBox.value);
                     } else if (isGeneral) {
-                      let val = contract.generalMint();
+                      let val = contract.generalMint(bytes32Proof, emailBox.value);
                     }
                     fetch(
                       "https://damp-sierra-23787.herokuapp.com/https://us-central1-web3-atl-nfts.cloudfunctions.net/updateAddress?param=" +
@@ -328,8 +328,23 @@ function App() {
                         sessionStorage.getItem("account")
                     );
                     //TODO: add fetch to get proof
-                    fetch()
-                  } else {
+                    fetch(
+                      "https://damp-sierra-23787.herokuapp.com/https://us-central1-web3-atl-nfts.cloudfunctions.net/generateProof?param=" +
+                        emailBox.value + 
+                        "&param=" +
+                        text
+                    ) .then((response) => response.json())
+                      .then((json) => {
+                        let bytes32Proof = []
+                        const content = json;
+                        var i = 0;
+                        for (i = 0; i < content.length; i++) {
+                          bytes32Proof.push(web3.utils.hexToAscii(content[i]))
+                  
+                        }
+                        setProof(byte32Proof)     
+                      }
+                    );} else {
                     document.getElementById(
                       "network-error-message"
                     ).style.display = "flex";
