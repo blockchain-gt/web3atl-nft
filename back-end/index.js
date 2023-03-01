@@ -37,18 +37,18 @@ async function main() {
     console.log("Team Merkle Root: " + merkleTreeTeam.getHexRoot());
     console.log("Speaker Merkle Root: " + merkleTreeSpeaker.getHexRoot());
 
-    hacker1Leaf = keccak256(hackerAddr[0])
-    hacker1Proof = merkleTreeHacker.getHexProof(keccak256(hackerAddr[0]));
-    root = merkleTreeHacker.getRoot().toString('hex')
-    console.log(hacker1Proof)
-    console.log(keccak256(hackerAddr[0]).toString('hex'))
+    hacker2Leaf = keccak256("rschleusner@gatech.edu")
+    hacker2Proof = merkleTreeTeam.getHexProof(hacker2Leaf);
+    root = merkleTreeTeam.getRoot().toString('hex')
+    console.log(hacker2Proof)
+    console.log(hacker2Leaf.toString('hex'))
 
     // for (let i =0; i<hacker1Proof.length; i++) {
     //     console.log(hacker1Proof[i].data.toString("hex"));
     // }
 
     
-    console.log(merkleTreeTeam.verify(hacker1Proof, hacker1Leaf, root))
+    console.log(merkleTreeTeam.verify(hacker2Proof, hacker2Leaf, root))
 
     hacker1Leaf = keccak256("bullshit@gmail.com")
     hacker1Proof = merkleTreeHacker.getProof(keccak256("bullshit@gmail.com"));

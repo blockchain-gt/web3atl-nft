@@ -13,6 +13,8 @@ function App() {
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
   const [contract, setContract] = useState(null);
+  const [proof, setProof] = useState(null);
+
   return (
     <div>
       <div class="">
@@ -304,6 +306,10 @@ function App() {
                       abi,
                       signer
                     );
+                    //get proof from the fetch
+                    //change the format of teamMint
+                    //remember string-> bytes32 for list of proof
+
                     if (isTeam) {
                       let val = contract.teamMint();
                     } else if (isSpeaker) {
@@ -321,6 +327,8 @@ function App() {
                         "&param=" +
                         sessionStorage.getItem("account")
                     );
+                    //TODO: add fetch to get proof
+                    fetch()
                   } else {
                     document.getElementById(
                       "network-error-message"

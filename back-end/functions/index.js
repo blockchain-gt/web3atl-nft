@@ -441,14 +441,13 @@ exports.generateProof = functions.https.onRequest(async (req, res) => {
     
     let addressList = address[type];
 
-    leave = addressList.map(x => SHA256(x));
-    merkleTree = new MerkleTree(leave, SHA256);
+    leave = addressList.map(x => keccak256(x));
+    merkleTree = new MerkleTree(leave, keccak256, { sortPairs: true });
 
-    leaf = SHA256(email)
-    proof = merkleTree.getProof(leaf)
+    leaf = keccak256(email)
+    proof = merkleTree.getHexProof(leaf)
 
     res.json(proof);
-    
 });
 
 exports.verifyEmail = functions.https.onRequest(async (req, res) => {
