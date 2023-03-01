@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { ethers } from "ethers";
 import abi from "../../mintNFTABI.json";
 import "./claim.css";
-const contractAddress = "0x551Fcf8733B99Fb14fDef8097Cde3b08D41FAE54";
+import web3 from "web3"
+const contractAddress = "0xa1a326B2299418F17928e74F3Fd347078992DbB2";
 
 function App() {
   const [isHacker, setIsHacker] = useState(false);
@@ -296,10 +297,13 @@ function App() {
                     text += "general";
                   }
                   if (window.ethereum.networkVersion === "10") {
+                    console.log(window.ethereum.networkVersion)
                     document.getElementById(
                       "network-error-message"
                     ).style.display = "none";
 
+                    console.log(proof)
+                    
                     const signer = provider.getSigner();
                     let contract = new ethers.Contract(
                       contractAddress,
@@ -311,13 +315,15 @@ function App() {
                     //remember string-> bytes32 for list of proof
 
                     if (isTeam) {
-                      let val = contract.teamMint(bytes32Proof, emailBox.value);
+                      let val = contract.teamMint(proof, emailBox.value);
+                      console.log(proof)
+                      console.log(emailBox.value)
                     } else if (isSpeaker) {
-                      let val = contract.speakerMint(bytes32Proof, emailBox.value);
+                      let val = contract.speakerMint(proof, emailBox.value);
                     } else if (isHacker) {
-                      let val = contract.hackerMint(bytes32Proof, emailBox.value);
+                      let val = contract.hackerMint(proof, emailBox.value);
                     } else if (isGeneral) {
-                      let val = contract.generalMint(bytes32Proof, emailBox.value);
+                      let val = contract.generalMint(proof, emailBox.value);
                     }
                     fetch(
                       "https://damp-sierra-23787.herokuapp.com/https://us-central1-web3-atl-nfts.cloudfunctions.net/updateAddress?param=" +
@@ -335,14 +341,17 @@ function App() {
                         text
                     ) .then((response) => response.json())
                       .then((json) => {
-                        let bytes32Proof = []
-                        const content = json;
-                        var i = 0;
-                        for (i = 0; i < content.length; i++) {
-                          bytes32Proof.push(web3.utils.hexToAscii(content[i]))
+                        // let bytes32Proof = []
+                        // const content = json;
+                        // var i = 0;
+                        // for (i = 0; i < content.length; i++) {
+                        //   console.log(content[i])
+                        //   bytes32Proof.push(web3.utils.hexToAscii(content[i]))
                   
-                        }
-                        setProof(byte32Proof)     
+                        // }
+                        // console.log(bytes32Proof)
+                        // setProof(bytes32Proof)     
+                        setProof(json)
                       }
                     );} else {
                     document.getElementById(
