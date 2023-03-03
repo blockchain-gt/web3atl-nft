@@ -451,12 +451,13 @@ exports.generateProof = functions.https.onRequest(async (req, res) => {
 });
 
 exports.verifyEmail = functions.https.onRequest(async (req, res) => {
-    const original = req.query.param;
-    console.log(original);
+    const email = req.query.param;
  
     const db = admin.firestore();
     const doc = db.collection('Email').doc("Attendance List").get();
     let data = (await doc).data();
+
+    console.log(email)
 
 
     let list = data["team"]
