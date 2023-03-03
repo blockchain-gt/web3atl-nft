@@ -69,7 +69,7 @@ function App() {
         </div>
         <div class="d-flex justify-content-center">
           <div class="d-flex justify-content-center text-area" id="text-area">
-            <div class=" flex-column">
+            <div class="d-flex flex-column justify-content-center">
               <input
                 id="email-box"
                 type="text"
@@ -85,87 +85,80 @@ function App() {
                   const discord = document.getElementById(
                     "discord-error-message"
                   );
-                  emailBox.addEventListener("blur", () => {
+                }}
+                placeholder="test@example.com"
+              />
+              <button
+                class="btn btn-primary mb-4 mx-12"
+                onClick={() => {
+                    const emailBox = document.getElementById("email-box");
+                    const invalidEmail = document.getElementById(
+                    "invalidemail-error-message"
+                    );
+                    const discordlink = document.getElementById(
+                      "discordlink-error-message"
+                    );
+                    const discord = document.getElementById(
+                      "discord-error-message"
+                    );
                     fetch(
-                      "https://damp-sierra-23787.herokuapp.com/https://us-central1-web3-atl-nfts.cloudfunctions.net/queryList"
+                      "https://damp-sierra-23787.herokuapp.com/https://us-central1-web3-atl-nfts.cloudfunctions.net/verifyEmail?param=" + emailBox.value
                     )
                       .then((response) => response.json())
                       .then((json) => {
                         const content = json;
-                        var i = 0;
-                        for (i = 0; i < content["team"].length; i++) {
-                          if (
-                            content["team"][i].toLowerCase().split(",")[0] ===
-                            emailBox.value.toLowerCase()
-                          ) {
-                            emailBox.style.border = "1px solid black";
-                            emailBox.style.background = "#FFFFFF";
-                            discordlink.style.display = "none";
-                            discord.style.display = "none";
-                            setIsEmailValid(true);
-                            setIsTeam(true);
-                            setIsSpeaker(false);
-                            setIsHacker(false);
-                            setIsGeneral(false);
-                            invalidEmail.style.display = "none";
-                            return;
-                          }
+                        console.log(content)
+                        if(content === "team") {
+                          emailBox.style.border = "1px solid black";
+                          emailBox.style.background = "#FFFFFF";
+                          discordlink.style.display = "none";
+                          discord.style.display = "none";
+                          setIsEmailValid(true);
+                          setIsTeam(true);
+                          setIsSpeaker(false);
+                          setIsHacker(false);
+                          setIsGeneral(false);
+                          invalidEmail.style.display = "none";
+                          return;
                         }
-                        for (i = 0; i < content["speaker"].length; i++) {
-                          if (
-                            content["speaker"][i]
-                              .toLowerCase()
-                              .split(",")[0] === emailBox.value.toLowerCase()
-                          ) {
-                            emailBox.style.border = "1px solid black";
-                            emailBox.style.background = "#FFFFFF";
-                            discordlink.style.display = "none";
-                            discord.style.display = "none";
-                            setIsEmailValid(true);
-                            setIsTeam(false);
-                            setIsSpeaker(true);
-                            setIsHacker(false);
-                            setIsGeneral(false);
-                            invalidEmail.style.display = "none";
-                            return;
-                          }
+                        if(content === "speaker") {
+                          emailBox.style.border = "1px solid black";
+                          emailBox.style.background = "#FFFFFF";
+                          discordlink.style.display = "none";
+                          discord.style.display = "none";
+                          setIsEmailValid(true);
+                          setIsTeam(false);
+                          setIsSpeaker(true);
+                          setIsHacker(false);
+                          setIsGeneral(false);
+                          invalidEmail.style.display = "none";
+                          return;
                         }
-                        for (i = 0; i < content["hacker"].length; i++) {
-                          if (
-                            content["hacker"][i].toLowerCase().split(",")[0] ===
-                            emailBox.value.toLowerCase()
-                          ) {
-                            emailBox.style.border = "1px solid black";
-                            emailBox.style.background = "#FFFFFF";
-                            discordlink.style.display = "none";
-                            discord.style.display = "none";
-                            setIsEmailValid(true);
-                            setIsTeam(false);
-                            setIsSpeaker(false);
-                            setIsHacker(true);
-                            setIsGeneral(false);
-                            invalidEmail.style.display = "none";
-                            return;
-                          }
+                        if(content === "hacker") {
+                          emailBox.style.border = "1px solid black";
+                          emailBox.style.background = "#FFFFFF";
+                          discordlink.style.display = "none";
+                          discord.style.display = "none";
+                          setIsEmailValid(true);
+                          setIsTeam(false);
+                          setIsSpeaker(false);
+                          setIsHacker(true);
+                          setIsGeneral(false);
+                          invalidEmail.style.display = "none";
+                          return;
                         }
-                        for (i = 0; i < content["general"].length; i++) {
-                          if (
-                            content["general"][i]
-                              .toLowerCase()
-                              .split(",")[0] === emailBox.value.toLowerCase()
-                          ) {
-                            emailBox.style.border = "1px solid black";
-                            emailBox.style.background = "#FFFFFF";
-                            discordlink.style.display = "none";
-                            discord.style.display = "none";
-                            setIsEmailValid(true);
-                            setIsTeam(false);
-                            setIsSpeaker(false);
-                            setIsHacker(false);
-                            setIsGeneral(true);
-                            invalidEmail.style.display = "none";
-                            return;
-                          }
+                        if(content === "general") {
+                          emailBox.style.border = "1px solid black";
+                          emailBox.style.background = "#FFFFFF";
+                          discordlink.style.display = "none";
+                          discord.style.display = "none";
+                          setIsEmailValid(true);
+                          setIsTeam(false);
+                          setIsSpeaker(false);
+                          setIsHacker(false);
+                          setIsGeneral(true);
+                          invalidEmail.style.display = "none";
+                          return;
                         }
                         emailBox.style.border = "2px solid red";
                         emailBox.style.background = "#FED6D6";
@@ -174,10 +167,7 @@ function App() {
                         discord.style.display = "flex";
                         setIsEmailValid(false);
                       });
-                  });
-                }}
-                placeholder="test@example.com"
-              />
+                }}> Submit </button>
             </div>
           </div>
         </div>
