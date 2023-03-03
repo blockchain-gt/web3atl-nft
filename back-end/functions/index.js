@@ -454,8 +454,6 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     const original = req.query.param;
     console.log(original);
     let email = original[0].toLowerCase();
-    let type = original[1].toLowerCase();
-    let address = original[2].toLowerCase();
  
     const db = admin.firestore();
     const doc = db.collection('Email').doc("Attendance List").get();
@@ -463,25 +461,49 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
 
     console.log(type)
 
-    let list = data[type]
+    let list = data["team"]
     let size = list.length
     let bool = false;
     
     for (let i = 0; i<size; i++) {
-        let currentString = list[i]
-        console.log(currentString)
-        let components = currentString.split(",")
-        let currentEmail = components[0]
+        let currentEmail = list[i]
         if (currentEmail.localeCompare(email)==0) {
-            list[i] = currentEmail+","+address;
-            data[type] = list
-            db.collection('Email').doc("Attendance List").set(data)
-            bool = true;
-            res.send("Email exist!");
+            res.send("team");
         } 
     }
+
+    list = data["speaker"]
+    size = list.length
+    
+    for (let i = 0; i<size; i++) {
+        let currentEmail = list[i]
+        if (currentEmail.localeCompare(email)==0) {
+            res.send("speaker");
+        } 
+    }
+
+    list = data["hacker"]
+    size = list.length
+    
+    for (let i = 0; i<size; i++) {
+        let currentEmail = list[i]
+        if (currentEmail.localeCompare(email)==0) {
+            res.send("hacker");
+        } 
+    }
+
+    list = data["general"]
+    size = list.length
+    
+    for (let i = 0; i<size; i++) {
+        let currentEmail = list[i]
+        if (currentEmail.localeCompare(email)==0) {
+            res.send("general");
+        } 
+    }
+
     if(!bool) {
-        res.send("Cannot find!");
+        res.send("none");
     }
 });
 
