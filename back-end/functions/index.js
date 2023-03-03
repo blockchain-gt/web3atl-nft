@@ -453,7 +453,6 @@ exports.generateProof = functions.https.onRequest(async (req, res) => {
 exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     const original = req.query.param;
     console.log(original);
-    let email = original[0].toLowerCase();
  
     const db = admin.firestore();
     const doc = db.collection('Email').doc("Attendance List").get();
