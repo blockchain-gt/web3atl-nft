@@ -459,7 +459,6 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     const doc = db.collection('Email').doc("Attendance List").get();
     let data = (await doc).data();
 
-    console.log(type)
 
     let list = data["team"]
     let size = list.length
@@ -503,7 +502,7 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     }
 
     if(!bool) {
-        res.send("none");
+        res.send("none!");
     }
 });
 
