@@ -465,7 +465,7 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     let bool = false;
     
     for (let i = 0; i<size; i++) {
-        let currentEmail = list[i]
+        let currentEmail = list[i].split(",")[0]
         if (currentEmail.localeCompare(email)==0) {
             res.json("team");
         } 
@@ -475,7 +475,7 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     size = list.length
     
     for (let i = 0; i<size; i++) {
-        let currentEmail = list[i]
+        let currentEmail = list[i].split(",")[0]
         if (currentEmail.localeCompare(email)==0) {
             res.json("speaker");
         } 
@@ -485,7 +485,7 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     size = list.length
     
     for (let i = 0; i<size; i++) {
-        let currentEmail = list[i]
+        let currentEmail = list[i].split(",")[0]
         if (currentEmail.localeCompare(email)==0) {
             res.json("hacker");
         } 
@@ -495,7 +495,7 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     size = list.length
     
     for (let i = 0; i<size; i++) {
-        let currentEmail = list[i]
+        let currentEmail = list[i].split(",")[0]
         if (currentEmail.localeCompare(email)==0) {
             res.json("general");
         } 

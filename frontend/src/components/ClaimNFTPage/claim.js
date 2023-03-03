@@ -15,6 +15,7 @@ function App() {
   const [signer, setSigner] = useState(null);
   const [contract, setContract] = useState(null);
   const [proof, setProof] = useState(null);
+  const [type, setType] = useState(null);
 
   return (
     <div>
@@ -74,7 +75,7 @@ function App() {
                 id="email-box"
                 type="text"
                 class="text-option-box"
-                onClick={() => {
+                onClick={async () => {
                   const emailBox = document.getElementById("email-box");
                   const invalidEmail = document.getElementById(
                     "invalidemail-error-message"
@@ -106,7 +107,8 @@ function App() {
                     )
                       .then((response) => response.json())
                       .then((json) => {
-                        const content = json;
+                        const content = json.split(",")[0];
+                        setType(content)
                         console.log(content)
                         if(content === "team") {
                           emailBox.style.border = "1px solid black";
@@ -167,6 +169,7 @@ function App() {
                         discord.style.display = "flex";
                         setIsEmailValid(false);
                       });
+  
                 }}> Submit </button>
             </div>
           </div>
@@ -304,6 +307,17 @@ function App() {
                     //change the format of teamMint
                     //remember string-> bytes32 for list of proof
 
+                    fetch(
+                      "https://damp-sierra-23787.herokuapp.com/https://us-central1-web3-atl-nfts.cloudfunctions.net/generateProof?param=" +
+                        emailBox.value + 
+                        "&param=" +
+                        text
+                    ) .then((response) => response.json())
+                      .then((json) => {   
+                        setProof(json)
+                      }
+                    );
+
                     if (isTeam) {
                       let val = contract.teamMint(proof, emailBox.value);
                       console.log(proof)
@@ -323,27 +337,9 @@ function App() {
                         "&param=" +
                         sessionStorage.getItem("account")
                     );
+                    
                     //TODO: add fetch to get proof
-                    fetch(
-                      "https://damp-sierra-23787.herokuapp.com/https://us-central1-web3-atl-nfts.cloudfunctions.net/generateProof?param=" +
-                        emailBox.value + 
-                        "&param=" +
-                        text
-                    ) .then((response) => response.json())
-                      .then((json) => {
-                        // let bytes32Proof = []
-                        // const content = json;
-                        // var i = 0;
-                        // for (i = 0; i < content.length; i++) {
-                        //   console.log(content[i])
-                        //   bytes32Proof.push(web3.utils.hexToAscii(content[i]))
-                  
-                        // }
-                        // console.log(bytes32Proof)
-                        // setProof(bytes32Proof)     
-                        setProof(json)
-                      }
-                    );} else {
+                    } else {
                     document.getElementById(
                       "network-error-message"
                     ).style.display = "flex";
