@@ -320,8 +320,6 @@ function App() {
 
                     if (isTeam) {
                       let val = contract.teamMint(proof, emailBox.value);
-                      console.log(proof)
-                      console.log(emailBox.value)
                     } else if (isSpeaker) {
                       let val = contract.speakerMint(proof, emailBox.value);
                     } else if (isHacker) {

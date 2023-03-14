@@ -465,9 +465,23 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     let bool = false;
     
     for (let i = 0; i<size; i++) {
-        let currentEmail = list[i].split(",")[0]
+        listPara = list[i].split(",")
+        let currentEmail = listPara[0]
         if (currentEmail.localeCompare(email)==0) {
-            res.json("team");
+            if(listPara.length > 1) {
+                let address = listPara[1];
+                console.log(address.length);
+                if(address.length > 0) {
+                    bool = true;
+                    res.json("Already Registered")
+                } else {
+                    bool = true;
+                    res.json("team");
+                }
+            } else {
+                bool = true;
+                res.json("team");
+            }
         } 
     }
 
@@ -475,9 +489,23 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     size = list.length
     
     for (let i = 0; i<size; i++) {
-        let currentEmail = list[i].split(",")[0]
+        listPara = list[i].split(",")
+        let currentEmail = listPara[0]
         if (currentEmail.localeCompare(email)==0) {
-            res.json("speaker");
+            if(listPara.length > 1) {
+                let address = listPara[1];
+                console.log(address.length);
+                if(address.length > 0) {
+                    bool = true;
+                    res.json("Already Registered")
+                } else {
+                    bool = true;
+                    res.json("speaker");
+                }
+            } else {
+                bool = true;
+                res.json("speaker");
+            }
         } 
     }
 
@@ -485,9 +513,23 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     size = list.length
     
     for (let i = 0; i<size; i++) {
-        let currentEmail = list[i].split(",")[0]
+        listPara = list[i].split(",")
+        let currentEmail = listPara[0]
         if (currentEmail.localeCompare(email)==0) {
-            res.json("hacker");
+            if(listPara.length > 1) {
+                let address = listPara[1];
+                console.log(address.length);
+                if(address.length > 0) {
+                    bool = true;
+                    res.json("Already Registered")
+                } else {
+                    bool = true;
+                    res.json("hacker");
+                }
+            } else {
+                bool = true;
+                res.json("hacker");
+            }
         } 
     }
 
@@ -495,9 +537,23 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     size = list.length
     
     for (let i = 0; i<size; i++) {
-        let currentEmail = list[i].split(",")[0]
+        listPara = list[i].split(",")
+        let currentEmail = listPara[0]
         if (currentEmail.localeCompare(email)==0) {
-            res.json("general");
+            if(listPara.length > 1) {
+                let address = listPara[1];
+                console.log(address.length);
+                if(address.length > 0) {
+                    bool = true;
+                    res.json("Already Registered")
+                } else {
+                    bool = true;
+                    res.json("general");
+                }
+            } else {
+                bool = true;
+                res.json("general");
+            }
         } 
     }
 
