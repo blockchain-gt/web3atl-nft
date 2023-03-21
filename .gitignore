@@ -256,3 +256,7 @@ dist
 # yarn v2
 
 # End of https://www.toptal.com/developers/gitignore/api/firebase,macos,node,solidity
+back-end/addresses.json
+back-end/old_addresses.json
+back-end/updated.json
+back-end/firestoreAddress.json

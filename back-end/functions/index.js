@@ -16,6 +16,15 @@ const admin = require('firebase-admin');
 
 admin.initializeApp();
 
+const AttendanceType = {
+	General: "general",
+	Speaker: "speaker",
+	Hacker: "hacker",
+	Team: "team"
+}
+
+
+
 const address = {
     "team":[
        "pruitt.martin@gmail.com",
@@ -463,10 +472,11 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     let list = data["team"]
     let size = list.length
     let bool = false;
+    let formattedEmail = ""
     
     for (let i = 0; i<size; i++) {
         listPara = list[i].split(",")
-        let currentEmail = listPara[0]
+        let currentEmail = listPara[0].toLowerCase()
         if (currentEmail.localeCompare(email)==0) {
             if(listPara.length > 1) {
                 let address = listPara[1];
@@ -490,7 +500,7 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     
     for (let i = 0; i<size; i++) {
         listPara = list[i].split(",")
-        let currentEmail = listPara[0]
+        let currentEmail = listPara[0].toLowerCase()
         if (currentEmail.localeCompare(email)==0) {
             if(listPara.length > 1) {
                 let address = listPara[1];
@@ -514,7 +524,7 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     
     for (let i = 0; i<size; i++) {
         listPara = list[i].split(",")
-        let currentEmail = listPara[0]
+        let currentEmail = listPara[0].toLowerCase()
         if (currentEmail.localeCompare(email)==0) {
             if(listPara.length > 1) {
                 let address = listPara[1];
@@ -538,7 +548,7 @@ exports.verifyEmail = functions.https.onRequest(async (req, res) => {
     
     for (let i = 0; i<size; i++) {
         listPara = list[i].split(",")
-        let currentEmail = listPara[0]
+        let currentEmail = listPara[0].toLowerCase()
         if (currentEmail.localeCompare(email)==0) {
             if(listPara.length > 1) {
                 let address = listPara[1];
@@ -574,7 +584,6 @@ exports.updateAddress = functions.https.onRequest(async (req, res) => {
     const doc = db.collection('Email').doc("Attendance List").get();
     let data = (await doc).data();
 
-    console.log(type)
 
     let list = data[type]
     let size = list.length
@@ -599,10 +608,63 @@ exports.updateAddress = functions.https.onRequest(async (req, res) => {
 });
 
 
+exports.initiateListTest = functions.https.onRequest(async (req, res) => {
+    const db = admin.firestore();
+
+    data = {
+        general: ["general1@gmail.com", "General2@gmail.com", "general3@gmail.com,", "generaL4@gmail.com,0123123"],
+        team: ["test1@gmail.com", "Test2@gmail.com"],
+        speaker: ["speaker1@gmail.com", "Speaker2@gmail.com"],
+        hacker: ["hacker1@gmail.com", "Hacker2@gmail.com", "hacker3@gmail.com,081298319283","HaCkE@Gmail.com,"],
+
+    }
+
+    const doc = db.collection('Email').doc("Attendance List").set(data);
+    res.send("Finish setting up list for testing!");
+});
+
 exports.queryList = functions.https.onRequest(async (req, res) => {
     const db = admin.firestore();
     const doc = db.collection('Email').doc("Attendance List").get();
     let data = (await doc).data();
     res.json({"general": data["general"], "speaker": data["speaker"], "hacker": data["hacker"], "team": data["team"], "sponser": data["sponser"]})
 });
+
+
+/**
+ * Turn all o fhte 
+ */
+exports.deCaseSensitivity = functions.https.onRequest(async (req, res) => {
+    const db = admin.firestore();
+    const doc = db.collection('Email').doc("Attendance List").get();
+
+    let data = (await doc).data();
+
+    for (let item in AttendanceType) {
+        console.log(AttendanceType[item])
+        let list = data[AttendanceType[item]]
+        console.log(list)
+
+        for (let i=0; i<list.length; i++) {
+            let currentString = list[i]
+            let components = currentString.split(",")
+            let address = ""
+            console.log(components.length)
+            //TODO: test on simulators 
+            if (components.length > 1) {
+                address = components[1];
+            }
+            let currentEmail = components[0]
+            list[i] = currentEmail.toLowerCase()+","+address;
+        }
+
+        data[AttendanceType[item]] = list
+    }
+    db.collection('Email').doc("Attendance List").set(data)
+    res.send("Finish lowercasing all of the email");
+    
+});
+
+
+
 

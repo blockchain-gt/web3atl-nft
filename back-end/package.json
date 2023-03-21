@@ -13,18 +13,18 @@
   },
   "main": "index.js",
   "dependencies": {
-    "firebase-admin": "^10.0.2",
-    "firebase-functions": "^3.18.0", 
     "ethers": "^5.7.2",
+    "file-js": "^1.2.0",
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.18.0",
     "fs": "^0.0.1-security",
     "keccak256": "^1.0.6",
     "merkletreejs": "^0.3.9",
-    "web3": "^1.8.1"
-
+    "web3": "^1.8.1",
+    "write": "^2.0.0"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.0"
   },
   "private": true
 }
-
