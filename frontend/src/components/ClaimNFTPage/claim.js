@@ -319,13 +319,13 @@ function App() {
                     );
 
                     if (isTeam) {
-                      let val = contract.teamMint(proof, emailBox.value);
+                      let val = contract.teamMint(proof, emailBox.value.toLowerCase());
                     } else if (isSpeaker) {
-                      let val = contract.speakerMint(proof, emailBox.value);
+                      let val = contract.speakerMint(proof, emailBox.value.toLowerCase());
                     } else if (isHacker) {
-                      let val = contract.hackerMint(proof, emailBox.value);
+                      let val = contract.hackerMint(proof, emailBox.value.toLowerCase());
                     } else if (isGeneral) {
-                      let val = contract.generalMint(proof, emailBox.value);
+                      let val = contract.generalMint(proof, emailBox.value.toLowerCase());
                     }
                     fetch(
                       "https://damp-sierra-23787.herokuapp.com/https://us-central1-web3-atl-nfts.cloudfunctions.net/updateAddress?param=" +
