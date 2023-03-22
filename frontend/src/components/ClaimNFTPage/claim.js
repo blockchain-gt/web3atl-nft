@@ -63,7 +63,7 @@ function App() {
           </button>
         </div>
         <div class="d-flex justify-content-center text-center">
-          <h1 class="font header">Claim Web3ATL NFT</h1>
+          <h1 class="font header">WEB3 ATL GENESIS NFTs</h1>
         </div>
         <div class="d-flex justify-content-center">
           <h1 id="text">Enter your email address:</h1>
@@ -247,7 +247,7 @@ function App() {
           <div class="d-flex justify-content-center">
             <button
               class="btn btn-primary btn-size"
-              onClick={() => {
+              onClick={async () => {
                 const option = document.getElementById("error-message");
                 const both = document.getElementById("all-error-message");
                 const invalidEmail = document.getElementById(
@@ -290,13 +290,10 @@ function App() {
                     text += "general";
                   }
                   if (window.ethereum.networkVersion === "10") {
-                    console.log(window.ethereum.networkVersion)
                     document.getElementById(
                       "network-error-message"
                     ).style.display = "none";
 
-                    console.log(proof)
-                    
                     const signer = provider.getSigner();
                     let contract = new ethers.Contract(
                       contractAddress,
@@ -317,27 +314,79 @@ function App() {
                         setProof(json)
                       }
                     );
-
-                    if (isTeam) {
-                      let val = contract.teamMint(proof, emailBox.value.toLowerCase());
-                    } else if (isSpeaker) {
-                      let val = contract.speakerMint(proof, emailBox.value.toLowerCase());
-                    } else if (isHacker) {
-                      let val = contract.hackerMint(proof, emailBox.value.toLowerCase());
-                    } else if (isGeneral) {
-                      let val = contract.generalMint(proof, emailBox.value.toLowerCase());
-                    }
-                    fetch(
-                      "https://damp-sierra-23787.herokuapp.com/https://us-central1-web3-atl-nfts.cloudfunctions.net/updateAddress?param=" +
-                        emailBox.value +
-                        "&param=" +
-                        text +
-                        "&param=" +
-                        sessionStorage.getItem("account")
-                    );
                     
-                    //TODO: add fetch to get proof
-                    } else {
+                    var successfulTxn = false
+                    if (isTeam) {
+                      contract.teamMint(proof, emailBox.value.toLowerCase())
+                      .then(tx => {
+                        console.log("Minted Successfully")
+                        fetch(
+                         "https://damp-sierra-23787.herokuapp.com/https://us-central1-web3-atl-nfts.cloudfunctions.net/updateAddress?param=" +
+                         emailBox.value +
+                         "&param=" +
+                         text +
+                          "&param=" +
+                         sessionStorage.getItem("account")
+                        );
+                      }).catch(e => {
+                        if(e.code == 4001) {
+                          console.log("User Deny");
+                        }
+                      })
+                    } else if (isSpeaker) {
+                      contract.speakerMint(proof, emailBox.value.toLowerCase())
+                      .then(tx => {
+                        console.log("Minted Successfully")
+                        fetch(
+                         "https://damp-sierra-23787.herokuapp.com/https://us-central1-web3-atl-nfts.cloudfunctions.net/updateAddress?param=" +
+                         emailBox.value +
+                         "&param=" +
+                         text +
+                          "&param=" +
+                         sessionStorage.getItem("account")
+                        );
+                      }).catch(e => {
+                        if(e.code == 4001) {
+                          console.log("User Deny");
+                        }
+                      })
+                    } else if (isHacker) {
+                      contract.hackerMint(proof, emailBox.value.toLowerCase())
+                      .then(tx => {
+                        console.log("Minted Successfully")
+                        fetch(
+                         "https://damp-sierra-23787.herokuapp.com/https://us-central1-web3-atl-nfts.cloudfunctions.net/updateAddress?param=" +
+                         emailBox.value +
+                         "&param=" +
+                         text +
+                          "&param=" +
+                         sessionStorage.getItem("account")
+                        );
+                      }).catch(e => {
+                        if(e.code == 4001) {
+                          console.log("User Deny");
+                        }
+                      })
+                    } else if (isGeneral) {
+                      contract.generalMint(proof, emailBox.value.toLowerCase())
+                      .then(tx => {
+                        console.log("Minted Successfully")
+                        fetch(
+                         "https://damp-sierra-23787.herokuapp.com/https://us-central1-web3-atl-nfts.cloudfunctions.net/updateAddress?param=" +
+                         emailBox.value +
+                         "&param=" +
+                         text +
+                          "&param=" +
+                         sessionStorage.getItem("account")
+                        );
+                      }).catch(e => {
+                        if(e.code == 4001) {
+                          console.log("User Deny");
+                        }
+                      })
+                    }
+                  
+                  } else {
                     document.getElementById(
                       "network-error-message"
                     ).style.display = "flex";
